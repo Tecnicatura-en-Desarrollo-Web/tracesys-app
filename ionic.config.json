@@ -1,0 +1,7 @@
+{
+  "name": "tracesys-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
