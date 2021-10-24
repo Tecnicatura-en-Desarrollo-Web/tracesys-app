@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import ListadoProductos from '../views/Productos/ListadoProductos.vue';
 import DetalleProducto from '../views/Productos/DetalleProducto.vue';
 import AprobarProducto from '../views/Productos/AprobarProducto.vue';
+import MensajesProducto from '../views/Productos/MensajesProducto.vue';
 
 const routes = [{
         path: '/',
@@ -24,6 +25,10 @@ const routes = [{
     {
         path: '/lista-productos/:id/aprobar',
         component: AprobarProducto
+    },
+    {
+        path: '/lista-productos/:id/mensajes',
+        component: MensajesProducto
     }
 ]
 
