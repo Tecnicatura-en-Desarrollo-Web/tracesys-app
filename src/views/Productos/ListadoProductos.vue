@@ -73,6 +73,7 @@ export default defineComponent({
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
         })
       .then((response) => {
+        // console.log(response.data);
         this.productos = response.data;
       })
       .catch((error) => {
