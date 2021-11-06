@@ -66,8 +66,7 @@ export default defineComponent({
       if (this.usuario.email && this.usuario.contrasena) {
         await this.loginUser(this.usuario);
         if (this.loginStatus === "success") {
-          alert("inicio de sesion correcto");
-          //window.location.href = "http://localhost:8100/home";
+          window.location.href = "http://localhost:8100/home";
         } else {
           const datosIncorrectos = await alertController.create({
             cssClass: "my-custom-class",

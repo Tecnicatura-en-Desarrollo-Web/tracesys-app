@@ -12,12 +12,12 @@
             Producto:
           </ion-col>
           <ion-col>
-            {{ producto.tipo }}
+            {{ producto.nombre }}
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            Motivo de reaparación:
+            Motivo de reparación:
           </ion-col>
           <ion-col>
             {{ producto.motivo }}
@@ -28,26 +28,31 @@
             Código de operación:
           </ion-col>
           <ion-col>
-            {{ producto.product_id }}
+            {{ producto.codigo }}
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="3">
+          <ion-col>
             Fecha
           </ion-col>
-          <ion-col size="3">
+          <ion-col>
+            {{ producto.fecha }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
             Hora
           </ion-col>
           <ion-col>
-            Estado
+            {{ producto.hora }}
           </ion-col>
         </ion-row>
-        <ion-row class="ion-align-items-center">
-          <ion-col size="6">
-            {{ producto.created }}
+        <ion-row>
+          <ion-col>
+            Estado
           </ion-col>
           <ion-col>
-            En reparación
+            {{producto.estado}}
           </ion-col>
         </ion-row>
         <ion-row>
@@ -118,7 +123,6 @@ export default defineComponent({
       })
       .then((response) => {
         this.producto = response.data.product;
-        console.log(response.data.product);
       })
       .catch((error) => {
         console.log("Error: " + error);
