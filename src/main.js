@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router';
+import router from './router'
 import VueAxios from 'vue-axios';
+import store from './store/index';
 
 import { IonicVue } from '@ionic/vue';
 
@@ -27,6 +28,7 @@ import './theme/variables.css';
 const app = createApp(App)
     .use(IonicVue)
     .use(router)
+    .use(store)
     .use(VueAxios);
 
 router.isReady().then(() => {
