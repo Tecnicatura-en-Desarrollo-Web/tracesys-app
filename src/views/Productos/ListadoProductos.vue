@@ -40,7 +40,8 @@
               :to="{ path: `/lista-productos/${producto.product_id}` }"
               class="item"
               title="View"
-              >+</router-link>
+              >+</router-link
+            >
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -49,24 +50,49 @@
 </template>
 
 <script>
-import { IonCol, IonGrid, IonRow, IonPage, IonHeader, IonTitle, IonContent, IonToolbar } from "@ionic/vue";
+import {
+  IonCol,
+  IonGrid,
+  IonRow,
+  IonPage,
+  IonHeader,
+  IonTitle,
+  IonContent,
+  IonToolbar,
+} from "@ionic/vue";
 import { defineComponent } from "vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default defineComponent({
-  components: { IonCol, IonGrid, IonRow, IonPage, IonHeader, IonTitle, IonContent, IonToolbar },
+  components: {
+    IonCol,
+    IonGrid,
+    IonRow,
+    IonPage,
+    IonHeader,
+    IonTitle,
+    IonContent,
+    IonToolbar,
+  },
   data() {
     return {
       productos: [],
     };
   },
+  computed: {
+    ...mapGetters("auth", {
+      authData: "getAuthData",
+    }),
+  },
   mounted() {
+    let data = new FormData();
+    data.append("idCliente", this.authData.userId);
     axios
-      .get("http://localhost:8765/api/products", {
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-        },
+      .post("http://localhost:8765/api/products/productsClient", data, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((response) => {
+        // console.log(response.data);
         this.productos = response.data;
       })
       .catch((error) => {
