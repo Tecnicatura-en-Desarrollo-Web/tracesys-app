@@ -11,7 +11,7 @@
           <ion-col size="4">
             Producto:
           </ion-col>
-          <ion-col>{{producto.tipo}} {{producto.marca}}</ion-col>
+          <ion-col>{{ producto.tipo }} {{ producto.marca }}</ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="4">
@@ -25,22 +25,20 @@
           <ion-col size="4">
             Reparación a realizar:
           </ion-col>
-          <ion-col>{{sugerencia.nombre_sugerencia}}</ion-col>
+          <ion-col>{{ sugerencia.nombre_sugerencia }}</ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="4">
             Presupuesto:
           </ion-col>
-          <ion-col>
-            $ {{presupuesto.monto}}
-          </ion-col>
+          <ion-col> $ {{ presupuesto.monto }} </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="4">
             Comentario:
           </ion-col>
           <ion-col>
-            {{sugerencia.descripcion_sugerencia}}
+            {{ sugerencia.descripcion_sugerencia }}
           </ion-col>
         </ion-row>
         <ion-row>
@@ -94,18 +92,18 @@ export default defineComponent({
   data() {
     return {
       data: {
-        id_cliente: "3"
+        id_cliente: "3",
       },
       presupuesto: [],
-      producto:[],
-      informe:[],
-      sugerencia:[]
+      producto: [],
+      informe: [],
+      sugerencia: [],
     };
   },
   mounted() {
     const formData = new FormData();
-    formData.append('id_producto',this.$route.params.id);
-    formData.append('id_cliente',this.data.id_cliente);
+    formData.append("id_producto", this.$route.params.id);
+    formData.append("id_cliente", this.data.id_cliente);
     axios
       .post(`http://localhost:8765/api/budgets/presupuesto`, formData, {
         headers: {
@@ -162,7 +160,7 @@ export default defineComponent({
         subHeader: "Estaremos en contacto",
         message:
           "De manera inmediata entrara en reparación su producto!<br>No dude en escribirnos por el chat :D<br>",
-        buttons: ["OK"]
+        buttons: ["OK"],
       });
       await cartelAcepta.present();
     },
