@@ -11,7 +11,7 @@
           <ion-col size="4">
             Producto:
           </ion-col>
-          <ion-col> {{ producto.tipo }} {{ producto.marca }} </ion-col>
+          <ion-col>{{ producto.tipo }} {{ producto.marca }}</ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="4">
@@ -25,37 +25,32 @@
           <ion-col size="4">
             Reparación a realizar:
           </ion-col>
-          <ion-col>
-            {{ producto.motivo }}
-          </ion-col>
+          <ion-col>{{ sugerencia.nombre_sugerencia }}</ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="4">
             Presupuesto:
           </ion-col>
-          <ion-col>
-            $1231321
-          </ion-col>
+          <ion-col> $ {{ presupuesto.monto }} </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="4">
             Comentario:
           </ion-col>
           <ion-col>
-            El nuevo repuesto es de marca "samsung" ya que es compatible con la
-            motherboard de su netbook
+            {{ sugerencia.descripcion_sugerencia }}
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            <a @click="cartelRechazado(producto.product_id)">
+            <a @click="cartelRechazado()">
               <ion-button color="danger">
                 Rechazar
               </ion-button>
             </a>
           </ion-col>
           <ion-col>
-            <a @click="cartelAceptado(producto.product_id)">
+            <a @click="cartelAceptado()">
               <ion-button color="success">
                 Aceptar
               </ion-button>
@@ -96,36 +91,44 @@ export default defineComponent({
   },
   data() {
     return {
-      id_producto: null,
+      data: {
+        id_cliente: "3",
+      },
+      presupuesto: [],
       producto: [],
+      informe: [],
+      sugerencia: [],
     };
   },
   mounted() {
-    this.id_producto = this.$route.params.id;
+    const formData = new FormData();
+    formData.append("id_producto", this.$route.params.id);
+    formData.append("id_cliente", this.data.id_cliente);
     axios
-      .get(`http://localhost:8765/api/products/view/${this.id_producto}`, {
+      .post(`http://localhost:8765/api/budgets/presupuesto`, formData, {
         headers: {
-          "X-Requested-With": "XMLHttpRequest",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       })
       .then((response) => {
-        this.producto = response.data.product;
-        console.log(response.data.product);
+        this.presupuesto = response.data.budget;
+        this.informe = response.data.budget.report;
+        this.producto = response.data.budget.report.product;
+        this.sugerencia = response.data.suggestion.suggestion;
+        // console.log(this.presupuesto,this.informe,this.producto);
       })
       .catch((error) => {
         console.log("Error: " + error);
       });
   },
   methods: {
-    async cartelRechazado(id_producto) {
-      // $swal function calls SweetAlert into the application with the specified configuration.
+    async cartelRechazado() {
       const cartelRechaza = await alertController.create({
         cssClass: "my-custom-class",
         header: "Rechazar",
         subHeader: "Estas seguro de rechazar?",
         message:
-          "No podrá revertir la decisión si rechaza el <br>presupuesto presentado por la empresa." +
-          id_producto,
+          "No podrá revertir la decisión si rechaza el <br>presupuesto presentado por la empresa.",
         buttons: [
           {
             text: "Cancelar",
@@ -144,22 +147,20 @@ export default defineComponent({
         const avisoRechazo = await alertController.create({
           cssClass: "my-custom-class",
           header: "Gracias por no pagar!",
-          message: "Retire su producto de forma inmediata<br>sino sera nuetra",
+          message: "Retire su producto de forma inmediata<br>sino sera NUESTRA",
           buttons: ["OK"],
         });
         await avisoRechazo.present();
       }
     },
-    async cartelAceptado(id_producto) {
-      // $swal function calls SweetAlert into the application with the specified configuration.
+    async cartelAceptado() {
       const cartelAcepta = await alertController.create({
         cssClass: "my-custom-class",
         header: "Gracias por confiar en nosotros!",
         subHeader: "Estaremos en contacto",
         message:
-          "De manera inmediata entrara en reparación su producto!<br>No dude en escribirnos por el chat :D<br>"+
-          id_producto,
-        buttons: ["OK"]
+          "De manera inmediata entrara en reparación su producto!<br>No dude en escribirnos por el chat :D<br>",
+        buttons: ["OK"],
       });
       await cartelAcepta.present();
     },
