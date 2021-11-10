@@ -27,17 +27,17 @@
           :key="producto.product_id"
         >
           <ion-col size="1">
-            {{ producto.product_id }}
+            {{ producto.codigo }}
           </ion-col>
           <ion-col>
-            {{ producto.created }}
+            {{ producto.fecha }}
           </ion-col>
           <ion-col>
-            {{ producto.tipo }} {{ producto.marca }} {{ producto.modelo }}
+            {{ producto.nombre }}
           </ion-col>
           <ion-col size="2">
             <router-link
-              :to="{ path: `/lista-productos/${producto.product_id}` }"
+              :to="{ path: `/lista-productos/${producto.codigo}` }"
               class="item"
               title="View"
               >+</router-link
