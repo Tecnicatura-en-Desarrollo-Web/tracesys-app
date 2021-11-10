@@ -77,6 +77,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default defineComponent({
   components: {
     IonCol,
@@ -91,21 +92,23 @@ export default defineComponent({
   },
   data() {
     return {
-      data: {
-        id_cliente: "3",
-      },
       presupuesto: [],
       producto: [],
       informe: [],
       sugerencia: [],
     };
   },
+  computed: {
+    ...mapGetters("auth", {
+      authData: "getAuthData",
+    }),
+  },
   mounted() {
-    const formData = new FormData();
-    formData.append("id_producto", this.$route.params.id);
-    formData.append("id_cliente", this.data.id_cliente);
+    let data = new FormData();
+    data.append("id_producto", this.$route.params.id);
+    data.append("id_cliente", this.authData.userId);
     axios
-      .post(`http://localhost:8765/api/budgets/presupuesto`, formData, {
+      .post(`http://localhost:8765/api/budgets/presupuesto`, data, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
