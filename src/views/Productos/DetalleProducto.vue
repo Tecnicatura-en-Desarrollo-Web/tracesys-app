@@ -58,7 +58,7 @@
         <ion-row>
           <ion-col>
             <router-link
-              :to="{ path: `/lista-productos/${producto.product_id}/mensajes` }"
+              :to="{ path: `/lista-productos/${producto.codigo}/mensajes` }"
               class="item"
               title="View"
               ><ion-button>Mensajes</ion-button></router-link
@@ -66,7 +66,7 @@
           </ion-col>
           <ion-col>
             <router-link
-              :to="{ path: `/lista-productos/${producto.product_id}/aprobar` }"
+              :to="{ path: `/lista-productos/${producto.codigo}/aprobar` }"
               class="item"
               title="View"
             >
@@ -95,6 +95,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default defineComponent({
   components: {
     IonCol,
@@ -113,12 +114,19 @@ export default defineComponent({
       producto: [],
     };
   },
+  computed: {
+    ...mapGetters("auth", {
+      authData: "getAuthData",
+    }),
+  },
   mounted() {
-    this.id_producto = this.$route.params.id;
+    let data = new FormData();
+    data.append('id_product',this.$route.params.id);
+    data.append('id_client',this.authData.userId);
     axios
-      .get(`http://localhost:8765/api/products/view/${this.id_producto}`, {
+      .post(`http://localhost:8765/api/reports/verInforme`, data, {
         headers: {
-          "X-Requested-With": "XMLHttpRequest",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       })
       .then((response) => {
