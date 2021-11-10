@@ -56,15 +56,15 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
+          <!-- <ion-col>
             <router-link
               :to="{ path: `/lista-productos/${producto.codigo}/mensajes` }"
               class="item"
               title="View"
               ><ion-button>Mensajes</ion-button></router-link
             >
-          </ion-col>
-          <ion-col>
+          </ion-col> -->
+          <ion-col v-if="botonPresupuesto">
             <router-link
               :to="{ path: `/lista-productos/${producto.codigo}/aprobar` }"
               class="item"
@@ -110,6 +110,7 @@ export default defineComponent({
   },
   data() {
     return {
+      botonPresupuesto:false,
       id_producto: null,
       producto: [],
     };
@@ -124,13 +125,16 @@ export default defineComponent({
     data.append('id_product',this.$route.params.id);
     data.append('id_client',this.authData.userId);
     axios
-      .post(`http://localhost:8765/api/reports/verInforme`, data, {
+      .post(`http://localhost:8765/api/informeempleadoestados/verInforme`, data, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       })
       .then((response) => {
         this.producto = response.data.product;
+        if(this.producto.estado=='Reparacion'){
+          this.botonPresupuesto=true;
+        }
       })
       .catch((error) => {
         console.log("Error: " + error);
