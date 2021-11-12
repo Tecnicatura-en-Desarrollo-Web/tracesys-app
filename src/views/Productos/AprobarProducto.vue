@@ -147,6 +147,21 @@ export default defineComponent({
       await cartelRechaza.present();
       const { role } = await cartelRechaza.onDidDismiss();
       if (role == "ok") {
+        let datoPresupuesto = new FormData();
+        datoPresupuesto.append('idInforme',this.informe.report_id);
+        datoPresupuesto.append('decision','rechazado');
+        axios
+          .post(`http://localhost:8765/api/Informeempleadoestados/decisionPresupuesto`, datoPresupuesto, {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log("Error: " + error);
+          });
         const avisoRechazo = await alertController.create({
           cssClass: "my-custom-class",
           header: "Gracias por no pagar!",
@@ -165,6 +180,21 @@ export default defineComponent({
           "De manera inmediata entrara en reparación su producto!<br>No dude en escribirnos por el chat :D<br>",
         buttons: ["OK"],
       });
+      let datoPresupuesto = new FormData();
+        datoPresupuesto.append('idInforme',this.informe.report_id);
+        datoPresupuesto.append('decision','aprobado');
+        axios
+          .post(`http://localhost:8765/api/Informeempleadoestados/decisionPresupuesto`, datoPresupuesto, {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log("Error: " + error);
+          });
       await cartelAcepta.present();
     },
   },
