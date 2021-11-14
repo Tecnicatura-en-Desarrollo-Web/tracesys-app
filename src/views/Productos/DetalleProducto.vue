@@ -132,7 +132,7 @@ export default defineComponent({
       })
       .then((response) => {
         this.producto = response.data.product;
-        if(this.producto.estado=='Aprobacion presupuesto'){
+        if(this.producto.estado=='Aprobacion cliente'){
           this.botonPresupuesto=true;
         }
       })
