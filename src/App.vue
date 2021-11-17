@@ -5,14 +5,28 @@
 </template>
 
 <script>
-import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import { IonApp, IonRouterOutlet } from "@ionic/vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
     IonApp,
-    IonRouterOutlet
-  }
+    IonRouterOutlet,
+  },
 });
 </script>
+<style>
+#botonLogin {
+  float: right;
+  margin-top: 20%;
+}
+
+.my-custom-class {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.my-custom-class .alert-wrapper .alert-message {
+  color: black;
+}
+</style>
