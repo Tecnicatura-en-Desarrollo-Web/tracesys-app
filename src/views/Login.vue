@@ -101,8 +101,8 @@ export default defineComponent({
           const datosIncorrectos = await alertController.create({
             cssClass: "my-custom-class",
             header: "Datos incorrectos!",
-            subHeader: "Verifique los datos ingresados",
-            message: "Verifique su usuario/correo y contraseña",
+            animated:true,
+            message: "Verifique los datos ingresados",
             buttons: ["OK"],
           });
           cargando.dismiss();
