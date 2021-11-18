@@ -1,116 +1,68 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title class="ion-text-center">Seguimiento del producto</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
+    <header-layout
+      titulo-pagina="Detalles del seguimiento"
+      enlace-pagina-anterior="/lista-productos"
+    >
       <ion-grid>
         <ion-row>
-          <ion-col>
-            Producto:
-          </ion-col>
-          <ion-col>
-            {{ producto.nombre }}
-          </ion-col>
+          <ion-col>Producto:</ion-col>
+          <ion-col>{{ producto.nombre }}</ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-            Motivo de reparación:
-          </ion-col>
-          <ion-col>
-            {{ producto.motivo }}
-          </ion-col>
+          <ion-col>Motivo de reparación:</ion-col>
+          <ion-col>{{ producto.motivo }}</ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-            Código de operación:
-          </ion-col>
-          <ion-col>
-            {{ producto.codigo }}
-          </ion-col>
+          <ion-col>Código de operación:</ion-col>
+          <ion-col>{{ producto.codigo }}</ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-            Fecha
-          </ion-col>
-          <ion-col>
-            {{ producto.fecha }}
-          </ion-col>
+          <ion-col>Fecha</ion-col>
+          <ion-col>{{ producto.fecha }}</ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-            Hora
-          </ion-col>
-          <ion-col>
-            {{ producto.hora }}
-          </ion-col>
+          <ion-col>Hora</ion-col>
+          <ion-col>{{ producto.hora }}</ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-            Estado
-          </ion-col>
-          <ion-col>
-            {{producto.estado}}
-          </ion-col>
+          <ion-col>Estado</ion-col>
+          <ion-col>{{ producto.estado }}</ion-col>
         </ion-row>
         <ion-row>
-          <!-- <ion-col>
-            <router-link
-              :to="{ path: `/lista-productos/${producto.codigo}/mensajes` }"
-              class="item"
-              title="View"
-              ><ion-button>Mensajes</ion-button></router-link
-            >
-          </ion-col> -->
           <ion-col v-if="botonPresupuesto">
             <router-link
               :to="{ path: `/lista-productos/${producto.codigo}/aprobar` }"
               class="item"
               title="View"
             >
-              <ion-button>
-                Presupuesto
-              </ion-button>
+              <ion-button>Presupuesto</ion-button>
             </router-link>
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-content>
+    </header-layout>
   </ion-page>
 </template>
 
 <script>
-import {
-  IonCol,
-  IonGrid,
-  IonRow,
-  IonToolbar,
-  IonTitle,
-  IonPage,
-  IonContent,
-  IonHeader,
-  IonButton,
-} from "@ionic/vue";
+import { IonCol, IonGrid, IonRow, IonPage, IonButton } from "@ionic/vue";
 import { defineComponent } from "vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
+import HeaderLayout from "@/components/layout/HeaderLayout.vue";
 export default defineComponent({
   components: {
     IonCol,
     IonGrid,
     IonRow,
-    IonToolbar,
-    IonContent,
-    IonTitle,
     IonPage,
-    IonHeader,
     IonButton,
+    HeaderLayout,
   },
   data() {
     return {
-      botonPresupuesto:false,
+      botonPresupuesto: false,
       id_producto: null,
       producto: [],
     };
@@ -120,20 +72,24 @@ export default defineComponent({
       authData: "getAuthData",
     }),
   },
-  mounted() {
+  created() {
     let data = new FormData();
-    data.append('id_product',this.$route.params.id);
-    data.append('id_client',this.authData.userId);
+    data.append("id_product", this.$route.params.id);
+    data.append("id_client", this.authData.userId);
     axios
-      .post(`http://localhost:8765/api/informeempleadoestados/verInforme`, data, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      })
+      .post(
+        `http://localhost:8765/api/informeempleadoestados/verInforme`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
       .then((response) => {
         this.producto = response.data.product;
-        if(this.producto.estado=='Aprobacion presupuesto'){
-          this.botonPresupuesto=true;
+        if (this.producto.estado == "Aprobacion cliente") {
+          this.botonPresupuesto = true;
         }
       })
       .catch((error) => {
