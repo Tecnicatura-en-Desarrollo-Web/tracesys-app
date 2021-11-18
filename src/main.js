@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import VueAxios from 'vue-axios';
 import store from './store/index';
+import HeaderLayout from './components/layout/HeaderLayout.vue';
+import FooterLayout from './components/layout/FooterLayout.vue';
+import MenuLayout from './components/layout/MenuLayout.vue';
 
 import { IonicVue } from '@ionic/vue';
 
@@ -30,6 +33,10 @@ const app = createApp(App)
     .use(router)
     .use(store)
     .use(VueAxios);
+
+app.component('header-layout', HeaderLayout);
+app.component('footer-layout', FooterLayout);
+app.component('menu-layout', MenuLayout);
 
 router.isReady().then(() => {
     app.mount('#app');
