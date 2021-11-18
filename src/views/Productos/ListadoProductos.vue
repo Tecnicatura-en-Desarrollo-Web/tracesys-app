@@ -1,25 +1,12 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title class="ion-text-center">Listado de productos</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
+    <header-layout titulo-pagina="Lista de Productos">
       <ion-grid>
         <ion-row class="ion-align-items-center ion-text-center">
-          <ion-col size="1">
-            #
-          </ion-col>
-          <ion-col>
-            Fecha
-          </ion-col>
-          <ion-col>
-            Producto
-          </ion-col>
-          <ion-col size="2">
-            Ver
-          </ion-col>
+          <ion-col size="1"> # </ion-col>
+          <ion-col> Fecha </ion-col>
+          <ion-col> Producto </ion-col>
+          <ion-col size="2"> Ver </ion-col>
         </ion-row>
         <ion-row
           class="ion-align-items-center ion-text-center"
@@ -39,43 +26,39 @@
             <router-link
               :to="{ path: `/lista-productos/${producto.codigo}` }"
               class="item"
-              title="View"
-              >+</router-link
+              title="View"> 
+              <ion-icon :src="addCircleOutline" size="large"></ion-icon>
+              </router-link
             >
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-content>
+    </header-layout>
+    <!-- <footer-layout>footer</footer-layout> -->
   </ion-page>
 </template>
 
 <script>
-import {
-  IonCol,
-  IonGrid,
-  IonRow,
-  IonPage,
-  IonHeader,
-  IonTitle,
-  IonContent,
-  IonToolbar,
-} from "@ionic/vue";
+import { IonPage, IonCol, IonGrid, IonRow,IonIcon } from "@ionic/vue";
 import { defineComponent } from "vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
+import { addCircleOutline } from "ionicons/icons";
+import HeaderLayout from "@/components/layout/HeaderLayout.vue";
+// import FooterLayout from "@/components/layout/FooterLayout.vue";
 export default defineComponent({
   components: {
+    IonPage,
     IonCol,
     IonGrid,
     IonRow,
-    IonPage,
-    IonHeader,
-    IonTitle,
-    IonContent,
-    IonToolbar,
+    HeaderLayout,
+    IonIcon,
+    // FooterLayout,
   },
   data() {
     return {
+      addCircleOutline,
       productos: [],
     };
   },
@@ -84,7 +67,7 @@ export default defineComponent({
       authData: "getAuthData",
     }),
   },
-  mounted() {
+  created() {
     let data = new FormData();
     data.append("idCliente", this.authData.userId);
     axios
@@ -92,7 +75,6 @@ export default defineComponent({
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((response) => {
-        // console.log(response.data);
         this.productos = response.data;
       })
       .catch((error) => {
