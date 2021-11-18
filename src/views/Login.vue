@@ -1,39 +1,45 @@
 <template>
   <ion-app>
-    <ion-header class="ion-padding">
-      <ion-toolbar>
-        <ion-title>
-          <ion-img :src="`/img/logoTracesysyChiquito.png`"> </ion-img>
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding" color="light">
-      <ion-card class="ion-padding">
-        <ion-card-content>
-          <ion-item>
-            <ion-label position="floating">Usuario:</ion-label>
-            <ion-input v-model="usuario.email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Contraseña:</ion-label>
-            <ion-input type="password" v-model="usuario.contrasena"></ion-input>
-          </ion-item>
-          <ion-button
-            id="botonLogin"
-            shape="round"
-            color="primary"
-            @click="iniciarSesion()"
-          >
-            Ingresar
-          </ion-button>
-        </ion-card-content>
-      </ion-card>
-    </ion-content>
+    <ion-page>
+      <ion-header class="ion-padding">
+        <ion-toolbar>
+          <ion-title>
+            <ion-img :src="`/img/logoTracesysyChiquito.png`"> </ion-img>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" color="light">
+        <ion-card class="ion-padding">
+          <ion-card-content>
+            <ion-item>
+              <ion-label position="floating">Usuario:</ion-label>
+              <ion-input v-model="usuario.email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Contraseña:</ion-label>
+              <ion-input
+                type="password"
+                v-model="usuario.contrasena"
+              ></ion-input>
+            </ion-item>
+            <ion-button
+              id="botonLogin"
+              shape="round"
+              color="primary"
+              @click="iniciarSesion()"
+            >
+              Ingresar
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-content>
+    </ion-page>
   </ion-app>
 </template>
 <script>
 import {
   IonApp,
+  IonPage,
   IonToolbar,
   IonHeader,
   IonTitle,
@@ -53,6 +59,7 @@ import { mapGetters, mapActions } from "vuex";
 export default defineComponent({
   components: {
     IonApp,
+    IonPage,
     IonToolbar,
     IonHeader,
     IonTitle,
@@ -101,7 +108,7 @@ export default defineComponent({
           const datosIncorrectos = await alertController.create({
             cssClass: "my-custom-class",
             header: "Datos incorrectos!",
-            animated:true,
+            animated: true,
             message: "Verifique los datos ingresados",
             buttons: ["OK"],
           });
