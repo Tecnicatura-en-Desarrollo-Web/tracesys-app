@@ -1,9 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
-// import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import store from '../store/index';
 import ListadoProductos from '../views/Productos/ListadoProductos.vue';
-import DetalleProducto from '../views/Productos/DetalleProducto.vue';
 import AprobarProducto from '../views/Productos/AprobarProducto.vue';
 import MensajesProducto from '../views/Productos/MensajesProducto.vue';
 
@@ -30,7 +28,8 @@ const routes = [{
     },
     {
         path: '/lista-productos/:id',
-        component: DetalleProducto,
+        component: () =>
+            import ('../views/Productos/DetalleProducto.vue'),
         meta: { requiredAuth: true },
     },
     {
