@@ -1,45 +1,26 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title class="ion-text-center">Aprobar presupuesto</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
+    <header-layout titulo-pagina="Presupuesto estimado" enlace-pagina-anterior="`/lista-productos/{{producto.codigo}}`">
       <ion-grid>
         <ion-row>
-          <ion-col size="4">
-            Producto:
-          </ion-col>
+          <ion-col size="4"> Producto: </ion-col>
           <ion-col>{{ producto.tipo }} {{ producto.marca }}</ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="4">
-            Estado:
-          </ion-col>
-          <ion-col>
-            Pendiente de aprobación
-          </ion-col>
+          <ion-col size="4"> Estado: </ion-col>
+          <ion-col> Pendiente de aprobación </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="4">
-            Reparación a realizar:
-          </ion-col>
+          <ion-col size="4"> Reparación a realizar: </ion-col>
           <ion-col>{{ sugerencia.nombre_sugerencia }}</ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="4">
-            Presupuesto:
-          </ion-col>
+          <ion-col size="4"> Presupuesto: </ion-col>
           <ion-col> $ {{ presupuesto.monto }} </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="4">
-            Comentario:
-          </ion-col>
-          <ion-col>
-            {{ sugerencia.descripcion_sugerencia }}
-          </ion-col>
+          <ion-col size="4">Comentario:</ion-col>
+          <ion-col> {{ sugerencia.descripcion_sugerencia }} </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
@@ -58,7 +39,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-content>
+    </header-layout>
   </ion-page>
 </template>
 
@@ -67,28 +48,22 @@ import {
   IonCol,
   IonGrid,
   IonRow,
-  IonToolbar,
-  IonTitle,
   IonPage,
-  IonContent,
-  IonHeader,
   IonButton,
   alertController,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
+import HeaderLayout from "@/components/layout/HeaderLayout.vue";
 export default defineComponent({
   components: {
     IonCol,
     IonGrid,
     IonRow,
-    IonToolbar,
-    IonContent,
-    IonTitle,
     IonPage,
-    IonHeader,
     IonButton,
+    HeaderLayout,
   },
   data() {
     return {
@@ -103,7 +78,7 @@ export default defineComponent({
       authData: "getAuthData",
     }),
   },
-  mounted() {
+  created() {
     let data = new FormData();
     data.append("id_producto", this.$route.params.id);
     data.append("id_cliente", this.authData.userId);
