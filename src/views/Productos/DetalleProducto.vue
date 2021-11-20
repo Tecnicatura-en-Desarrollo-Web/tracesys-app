@@ -88,13 +88,8 @@ export default defineComponent({
       )
       .then((response) => {
         this.producto = response.data.product;
-<<<<<<< HEAD
         if(this.producto.estado=='Aprobacion cliente'){
           this.botonPresupuesto=true;
-=======
-        if (this.producto.estado == "Aprobacion cliente") {
-          this.botonPresupuesto = true;
->>>>>>> 17bf9f1 (se minimiza el codigo por los nuevos componentes y se agrega navegabilidad)
         }
       })
       .catch((error) => {
