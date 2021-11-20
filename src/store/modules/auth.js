@@ -56,6 +56,12 @@ const actions = {
             commit("saveLoginStatus", "failed");
         }
     },
+    async logoutUser() {
+        await Storage.set({
+            key: "access_token",
+            value: ''
+        });
+    }
 };
 
 const mutations = {

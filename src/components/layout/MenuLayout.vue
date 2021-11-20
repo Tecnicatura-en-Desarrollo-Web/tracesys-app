@@ -19,6 +19,12 @@
             <ion-label class="ion-margin"> Perfil </ion-label>
           </ion-item>
         </ion-router-link>
+        <ion-router-link color="dark" href="/login">
+          <ion-item @click="cerrarSesion()">
+            <ion-icon :src="person"></ion-icon>
+            <ion-label class="ion-margin"> Cerrar sesion </ion-label>
+          </ion-item>
+        </ion-router-link>
       </ion-list>
     </ion-content>
     <ion-footer>
@@ -47,7 +53,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent } from "@vue/runtime-core";
 import { notifications, person } from "ionicons/icons";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default defineComponent({
   props: ["tituloPagina", "enlacePaginaAnterior"],
   components: {
@@ -74,5 +80,13 @@ export default defineComponent({
       authData: "getAuthData",
     }),
   },
+  methods:{
+    ...mapActions("auth",{
+      logout:"logoutUser"
+    }),
+    async cerrarSesion(){
+      await this.logout();
+    }
+  }
 });
 </script>
