@@ -1,27 +1,27 @@
 <template>
   <ion-menu side="start" content-id="menuOpciones" class="ion-text-center">
     <ion-header>
-      <ion-toolbar color="primary">
+      <ion-toolbar>
         <ion-title> Menu </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-router-link color="dark" href="/">
+        <ion-router-link href="/">
           <ion-item>
             <ion-icon :src="notifications"> </ion-icon>
             <ion-label class="ion-margin"> Productos </ion-label>
           </ion-item>
         </ion-router-link>
-        <ion-router-link color="dark" href="#">
+        <ion-router-link href="#">
           <ion-item>
             <ion-icon :src="person"></ion-icon>
             <ion-label class="ion-margin"> Perfil </ion-label>
           </ion-item>
         </ion-router-link>
-        <ion-router-link color="dark" href="/login">
+        <ion-router-link href="/login">
           <ion-item @click="cerrarSesion()">
-            <ion-icon :src="person"></ion-icon>
+            <ion-icon :src="logOut"></ion-icon>
             <ion-label class="ion-margin"> Cerrar sesion </ion-label>
           </ion-item>
         </ion-router-link>
@@ -30,7 +30,7 @@
     <ion-footer>
       <ion-toolbar class="ion-text-capitalize">
         <ion-icon :src="person"></ion-icon>
-          Cliente: {{ authData.userName }}
+        Cliente: {{ authData.userName }}
       </ion-toolbar>
     </ion-footer>
   </ion-menu>
@@ -52,7 +52,7 @@ import {
   IonFooter,
 } from "@ionic/vue";
 import { defineComponent } from "@vue/runtime-core";
-import { notifications, person } from "ionicons/icons";
+import { notifications, person, logOut } from "ionicons/icons";
 import { mapActions, mapGetters } from "vuex";
 export default defineComponent({
   props: ["tituloPagina", "enlacePaginaAnterior"],
@@ -73,6 +73,7 @@ export default defineComponent({
     return {
       person,
       notifications,
+      logOut,
     };
   },
   computed: {
@@ -80,13 +81,14 @@ export default defineComponent({
       authData: "getAuthData",
     }),
   },
-  methods:{
-    ...mapActions("auth",{
-      logout:"logoutUser"
+  methods: {
+    ...mapActions("auth", {
+      logout: "logoutUser",
     }),
-    async cerrarSesion(){
+    async cerrarSesion() {
+      //borramos el access token, el cual es se lee para sacar la info del usuario logueado
       await this.logout();
-    }
-  }
+    },
+  },
 });
 </script>

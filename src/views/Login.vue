@@ -1,31 +1,29 @@
 <template>
   <ion-app>
     <ion-page>
-      <ion-header class="ion-padding">
-        <ion-toolbar>
+        <ion-toolbar color="light" class="ion-padding">
           <ion-title>
-            <ion-img :src="`/img/logoTracesysyChiquito.png`"> </ion-img>
+            <ion-img :src="`/img/logoTracesysyChiquito.png`" id="idImg"> </ion-img>
           </ion-title>
         </ion-toolbar>
-      </ion-header>
       <ion-content class="ion-padding" color="light">
         <ion-card class="ion-padding">
           <ion-card-content>
             <ion-item>
               <ion-label position="floating">Usuario:</ion-label>
-              <ion-input v-model="usuario.email"></ion-input>
+              <ion-input v-model="usuario.email" type="text" placeholder="Usuario"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Contraseña:</ion-label>
               <ion-input
                 type="password"
                 v-model="usuario.contrasena"
+                placeholder="Contraseña"
               ></ion-input>
             </ion-item>
             <ion-button
               id="botonLogin"
               shape="round"
-              color="primary"
               @click="iniciarSesion()"
             >
               Ingresar
@@ -36,12 +34,21 @@
     </ion-page>
   </ion-app>
 </template>
+<style>
+#idImg{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 65%;
+}
+ion-button{
+  --background: #6d9886;
+}
+</style>
 <script>
 import {
   IonApp,
   IonPage,
   IonToolbar,
-  IonHeader,
   IonTitle,
   IonContent,
   IonImg,
@@ -61,7 +68,6 @@ export default defineComponent({
     IonApp,
     IonPage,
     IonToolbar,
-    IonHeader,
     IonTitle,
     IonContent,
     IonImg,

@@ -1,6 +1,6 @@
 <template>
   <ion-app>
-    <ion-page >
+    <ion-page>
       <menu-layout></menu-layout>
       <ion-header>
         <ion-toolbar>
@@ -12,6 +12,8 @@
           <ion-title>
             {{ tituloPagina }}
           </ion-title>
+              <!--agregamos el boton de retroceso para navegabilidad
+              ademas guardamos como variable la pagina anterior-->
           <ion-buttons slot="end">
             <ion-back-button :default-href="enlacePaginaAnterior">
             </ion-back-button>
@@ -19,14 +21,29 @@
         </ion-toolbar>
       </ion-header>
       <ion-content color="light" class="ion-padding">
-        <slot />
+        <ion-card>
+          <ion-card-content>
+            <slot />
+          </ion-card-content>
+        </ion-card>
       </ion-content>
-      <!-- <ion-footer> -->
-        <footer-layout></footer-layout>
-      <!-- </ion-footer> -->
+      <footer-layout></footer-layout>
     </ion-page>
   </ion-app>
 </template>
+<style>
+ion-toolbar {
+  --background: #212121;
+  color: #fff;
+}
+ion-back-button,
+ion-icon {
+  color: #6d9886;
+}
+ion-row {
+  border-bottom: 1px solid #dadada;
+}
+</style>
 <script>
 import {
   IonApp,
@@ -39,7 +56,8 @@ import {
   IonTitle,
   IonContent,
   IonIcon,
-  // IonFooter,
+  IonCard,
+  IonCardContent,
 } from "@ionic/vue";
 import { defineComponent } from "@vue/runtime-core";
 import { menuSharp } from "ionicons/icons";
@@ -60,7 +78,8 @@ export default defineComponent({
     IonIcon,
     MenuLayout,
     FooterLayout,
-    // IonFooter,
+    IonCard,
+    IonCardContent,
   },
   data() {
     return {
@@ -69,9 +88,3 @@ export default defineComponent({
   },
 });
 </script>
-<style>
-ion-icon,
-ion-back-button {
-  color: blue;
-}
-</style>

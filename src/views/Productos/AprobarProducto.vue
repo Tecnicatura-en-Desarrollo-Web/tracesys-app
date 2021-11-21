@@ -1,28 +1,31 @@
 <template>
   <ion-page>
-    <header-layout titulo-pagina="Presupuesto estimado" enlace-pagina-anterior="`/lista-productos/{{producto.codigo}}`">
+    <header-layout
+      titulo-pagina="Presupuesto estimado"
+      enlace-pagina-anterior="`/lista-productos/{{producto.codigo}}`"
+    >
       <ion-grid>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col size="4"> Producto: </ion-col>
           <ion-col>{{ producto.tipo }} {{ producto.marca }}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col size="4"> Estado: </ion-col>
           <ion-col> Pendiente de aprobación </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col size="4"> Reparación a realizar: </ion-col>
           <ion-col>{{ sugerencia.nombre_sugerencia }}</ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col size="4"> Presupuesto: </ion-col>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="4"> Presupuesto </ion-col>
           <ion-col> $ {{ presupuesto.monto }} </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col size="4">Comentario:</ion-col>
           <ion-col> {{ sugerencia.descripcion_sugerencia }} </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col>
             <a @click="cartelRechazado()">
               <ion-button color="danger">
@@ -93,7 +96,6 @@ export default defineComponent({
         this.informe = response.data.budget.report;
         this.producto = response.data.budget.report.product;
         this.sugerencia = response.data.suggestion.suggestion;
-        // console.log(this.presupuesto,this.informe,this.producto);
       })
       .catch((error) => {
         console.log("Error: " + error);
@@ -123,14 +125,18 @@ export default defineComponent({
       const { role } = await cartelRechaza.onDidDismiss();
       if (role == "ok") {
         let datoPresupuesto = new FormData();
-        datoPresupuesto.append('idInforme',this.informe.report_id);
-        datoPresupuesto.append('decision','rechazado');
+        datoPresupuesto.append("idInforme", this.informe.report_id);
+        datoPresupuesto.append("decision", "rechazado");
         axios
-          .post(`http://localhost:8765/api/Informeempleadoestados/decisionPresupuesto`, datoPresupuesto, {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          })
+          .post(
+            `http://localhost:8765/api/Informeempleadoestados/decisionPresupuesto`,
+            datoPresupuesto,
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            }
+          )
           .then((response) => {
             console.log(response.data);
           })
@@ -145,6 +151,7 @@ export default defineComponent({
         });
         await avisoRechazo.present();
       }
+      window.location.href = "http://localhost:8100/";
     },
     async cartelAceptado() {
       const cartelAcepta = await alertController.create({
@@ -156,21 +163,26 @@ export default defineComponent({
         buttons: ["OK"],
       });
       let datoPresupuesto = new FormData();
-        datoPresupuesto.append('idInforme',this.informe.report_id);
-        datoPresupuesto.append('decision','aprobado');
-        axios
-          .post(`http://localhost:8765/api/Informeempleadoestados/decisionPresupuesto`, datoPresupuesto, {
+      datoPresupuesto.append("idInforme", this.informe.report_id);
+      datoPresupuesto.append("decision", "aprobado");
+      axios
+        .post(
+          `http://localhost:8765/api/Informeempleadoestados/decisionPresupuesto`,
+          datoPresupuesto,
+          {
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
             },
-          })
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log("Error: " + error);
-          });
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log("Error: " + error);
+        });
       await cartelAcepta.present();
+      window.location.href = "http://localhost:8100/";
     },
   },
 });

@@ -5,31 +5,31 @@
       enlace-pagina-anterior="/lista-productos"
     >
       <ion-grid>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col>Producto:</ion-col>
           <ion-col>{{ producto.nombre }}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col>Motivo de reparación:</ion-col>
           <ion-col>{{ producto.motivo }}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col>Código de operación:</ion-col>
           <ion-col>{{ producto.codigo }}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col>Fecha</ion-col>
           <ion-col>{{ producto.fecha }}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col>Hora</ion-col>
           <ion-col>{{ producto.hora }}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col>Estado</ion-col>
           <ion-col>{{ producto.estado }}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col v-if="botonPresupuesto">
             <router-link
               :to="{ path: `/lista-productos/${producto.codigo}/aprobar` }"

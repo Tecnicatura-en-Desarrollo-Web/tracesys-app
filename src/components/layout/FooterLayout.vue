@@ -2,20 +2,24 @@
   <ion-footer>
     <ion-toolbar>
       <ion-title>
-          <ion-img :src="`/img/logoTracesysyChiquito.png`" id="imgFooter">
-          </ion-img>
+        <ion-img
+          :src="`/img/logoTracesysyChiquito.png`"
+          id="imgFooter"
+          :alt="`Logo tracesys`"
+        >
+        </ion-img>
       </ion-title>
     </ion-toolbar>
   </ion-footer>
 </template>
 <style>
-ion-footer {
-  height: 10%;
-}
 #imgFooter {
+  padding: 2%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 65%;
+  max-width: 40%;
+  border-radius: 15px;
+  background: #f4f5f8;
 }
 </style>
 <script>
@@ -27,9 +31,6 @@ export default {
     IonTitle,
     IonToolbar,
     IonImg,
-  },
-  data() {
-    return {};
   },
 };
 </script>
