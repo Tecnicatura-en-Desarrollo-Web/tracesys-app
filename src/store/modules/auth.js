@@ -41,6 +41,7 @@ const actions = {
         let data = new FormData();
         data.append('email', payload.email);
         data.append('contrasena', payload.contrasena);
+        data.append('usuario', payload.alias);
         const response = await axios.post("http://localhost:8765/api/clients/login", data, {
             headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" }
         });
